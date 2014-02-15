@@ -84,7 +84,7 @@ function engine.bird.Move(dt) -- Macumba realizada nessa linha para funcionar le
 					bird.gMove.Rad = bird.gMove.Rad - 0.8
 					engine.image.RadEdit(game.img.bird, bird.gMove.Rad)
 				end
-				print(bird.gMove.Rad)
+				
 				if bird.gMove.Vend <= 0 then	
 					bird.gMove.InMove = 0
 					bird.gMove.gTime = 0
