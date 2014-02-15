@@ -16,6 +16,8 @@ function load()
 	game.img.start_bt = engine.image.Create(354, 118, 52, 30, game.res[1], game.res[2])
 	game.img.rank_bt = engine.image.Create(414, 118, 52, 30, game.res[1], game.res[2])
 	game.img.rate_bt = engine.image.Create(465, 1, 31, 19, game.res[1], game.res[2])
+
+	engine.enviroment.createColisionArea(game.img.footer, "GameOver")
 end
 
 function game_config()
@@ -32,14 +34,14 @@ function love.draw()
 	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer-13, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
 	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
 
-	engine.image.Draw(game.img.flaptitle, game.source, game.img.prop[game.img.flaptitle][1], (love.window.getWidth()/2)-(89/2), (love.window.getHeight()/2)-75, game.img.prop[game.img.flaptitle][2])
+	--engine.image.Draw(game.img.flaptitle, game.source, game.img.prop[game.img.flaptitle][1], (love.window.getWidth()/2)-(89/2), (love.window.getHeight()/2)-75, game.img.prop[game.img.flaptitle][2])
 
 	engine.image.Draw(game.img.bird, game.source, game.img.prop[game.img.bird][1], (love.window.getWidth()/2)-7, ((love.window.getHeight()/2)-40) + bird.vMove, game.img.prop[game.img.bird][2])
 
-	engine.image.Draw(game.img.start_bt, game.source, game.img.prop[game.img.start_bt][1], ((love.window.getWidth()/2)-26) - 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.start_bt][2])
-	engine.image.Draw(game.img.rank_bt, game.source, game.img.prop[game.img.rank_bt][1], ((love.window.getWidth()/2)-26) + 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.rank_bt][2])
+	--engine.image.Draw(game.img.start_bt, game.source, game.img.prop[game.img.start_bt][1], ((love.window.getWidth()/2)-26) - 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.start_bt][2])
+	--engine.image.Draw(game.img.rank_bt, game.source, game.img.prop[game.img.rank_bt][1], ((love.window.getWidth()/2)-26) + 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.rank_bt][2])
 
-	engine.image.Draw(game.img.rate_bt, game.source, game.img.prop[game.img.rate_bt][1], ((love.window.getWidth()/2)-15), (love.window.getHeight()/2), game.img.prop[game.img.rate_bt][2])
+	--engine.image.Draw(game.img.rate_bt, game.source, game.img.prop[game.img.rate_bt][1], ((love.window.getWidth()/2)-15), (love.window.getHeight()/2), game.img.prop[game.img.rate_bt][2])
 end
 
 function love.load()
@@ -49,6 +51,8 @@ function love.update(dt)
 	engine.bird.Frame(dt)		-- Cria movimentação da imagem da ave
 	engine.bird.Move(dt) 		-- Cria movimentação vertical da ave
 	engine.enviroment.Move(dt)  -- Cria movimento do ambiente
+
+	engine.enviroment.ColisionCheck(dt, game.img.bird) -- Colisão do Bird
 end
 
 function love.focus(bool)

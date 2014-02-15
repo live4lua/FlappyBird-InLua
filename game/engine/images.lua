@@ -16,7 +16,7 @@ function engine.image.Create(sx, sy, mx, my, resWidth, resHight)
 										0, -- X
 										0, -- Y
 										mx, -- Max X
-										my, -- Max Y
+										my -- Max Y
 									  }
 
 	return game.img.prop_c
@@ -26,6 +26,11 @@ function engine.image.Draw(id, image, quad, x, y, r)
 	game.img.prop[id][2] = r
 	game.img.prop[id][4] = x
 	game.img.prop[id][5] = y
+
+	if engine.enviroment.existColision(id) then
+		engine.enviroment.editColision(id, x, y)
+	end
+
 
 	love.graphics.draw(game.source, game.img.prop[id][1], x, y, game.img.prop[id][2])
 end

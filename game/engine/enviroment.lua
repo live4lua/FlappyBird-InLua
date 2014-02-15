@@ -7,12 +7,15 @@ function engine.enviroment.Config()
 	game.move.act = 0.035
 
 	game.colision = {}
+	game.colision[0] = 0
 	game.colision.ActiveDefault = 0
+	game.colision.Start = true
+	game.colision.Time = 0
 end
 
 -- Função para movimento da Ambientação
 function engine.enviroment.Move(dt)
-	if game.move.time > game.move.act then
+	if game.move.time > game.move.act and bird.lock ~= 2 then
 		if game.move.footer > 0 then
 			game.move.footer = game.move.footer - 1
 		else
@@ -28,6 +31,9 @@ end
 -- Função de colisão do ambiente
 -- Retorna TRUE se o objeto (PX, PY) estiver na area (X, Y <> MX, MY) 
 function engine.enviroment.Colision(px, py, x, y, mx, my)
+	mx = x + mx
+	my = y + my
+
 	if px >= x and px <= mx then
 		if py >= y and py <= my then
 			return true
@@ -42,7 +48,7 @@ end
 -- callback ref a função realizada quando atinge o a area
 -- -- Lista de callback's (Ainda não oficial)
 -- -- -- GameOver
--- -- -- WinPoint
+-- -- -- GivePoint
 -- Retorno o ID da Area colisão
 function engine.enviroment.createColisionArea(objectID, callback)
 	game.colision[0] = game.colision[0] + 1
@@ -54,7 +60,60 @@ function engine.enviroment.createColisionArea(objectID, callback)
 										game.img.prop[objectID][4], -- X
 										game.img.prop[objectID][5], -- Y
 										game.img.prop[objectID][6], -- MX
-										game.img.prop[objectID][7], -- MY
+										game.img.prop[objectID][7] -- MY
 									  }
 	return game.colision[0]
+end
+
+function engine.enviroment.ColisionCheck(dt, objectID)
+	if game.colision.Start then
+		if game.colision.Time > 0.008 then
+			if game.colision[0] > 0 then
+				for i=1,game.colision[0] do
+					local local_colision = {
+											engine.enviroment.Colision(game.img.prop[objectID][4], game.img.prop[objectID][5], game.colision[i][4], game.colision[i][5], game.colision[i][6], game.colision[i][7]),
+											engine.enviroment.Colision(game.img.prop[objectID][4], game.img.prop[objectID][5]+game.img.prop[objectID][7], game.colision[i][4], game.colision[i][5], game.colision[i][6], game.colision[i][7]),
+											engine.enviroment.Colision(game.img.prop[objectID][4]+game.img.prop[objectID][6], game.img.prop[objectID][5], game.colision[i][4], game.colision[i][5], game.colision[i][6], game.colision[i][7]),
+											engine.enviroment.Colision(game.img.prop[objectID][4]+game.img.prop[objectID][6], game.img.prop[objectID][5]+game.img.prop[objectID][7], game.colision[i][4], game.colision[i][5], game.colision[i][6], game.colision[i][7])
+										   }
+
+					if local_colision[1] or local_colision[2] or local_colision[3] or local_colision[4] then
+						if game.colision[i][2] == "GameOver" then
+							print("Colision GameOver")
+							engine.game.GameOver()
+						elseif game.colision[i][2] == "GivePoint" then
+							print("Colision Point")
+						end
+					end
+				end
+			end
+		else
+			game.colision.Time = game.colision.Time + dt
+		end
+	end
+end
+
+function engine.enviroment.editColision(objectID, x, y)
+	local colisionID = nil
+
+	for i=1,game.colision[0] do
+		if objectID == game.colision[i][1] then
+			colisionID = i
+		end
+	end
+
+	game.colision[colisionID][4] = x
+	game.colision[colisionID][5] = y
+end
+
+function engine.enviroment.existColision(objectID)
+	if game.colision[0] > 0 then
+		for i=1,game.colision[0] do
+			if objectID == game.colision[i][1] then
+				return true
+			end
+		end
+	end
+
+	return false
 end
