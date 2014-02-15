@@ -26,20 +26,20 @@ end
 	
 function love.draw()
 	love.graphics.setColor(255, 255, 255, 255)
-	love.graphics.draw(game.source, game.img.prop[game.img.background[1]][1], 0, 0, game.img.prop[game.img.background[1]][2])
+	engine.image.Draw(game.img.background[1], game.source, game.img.prop[game.img.background[1]][1], 0, 0, game.img.prop[game.img.background[1]][2])
 
 	love.graphics.setColor(255, 255, 255)
-	love.graphics.draw(game.source, game.img.prop[game.img.footer][1], move.footer-13, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
-	love.graphics.draw(game.source, game.img.prop[game.img.footer][1], move.footer, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
+	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer-13, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
+	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
 
-	love.graphics.draw(game.source, game.img.prop[game.img.flaptitle][1], (love.window.getWidth()/2)-(89/2), (love.window.getHeight()/2)-75, game.img.prop[game.img.flaptitle][2])
+	engine.image.Draw(game.img.flaptitle, game.source, game.img.prop[game.img.flaptitle][1], (love.window.getWidth()/2)-(89/2), (love.window.getHeight()/2)-75, game.img.prop[game.img.flaptitle][2])
 
-	love.graphics.draw(game.source, game.img.prop[game.img.bird][1], (love.window.getWidth()/2)-7, ((love.window.getHeight()/2)-40) + bird.vMove, game.img.prop[game.img.bird][2])
+	engine.image.Draw(game.img.bird, game.source, game.img.prop[game.img.bird][1], (love.window.getWidth()/2)-7, ((love.window.getHeight()/2)-40) + bird.vMove, game.img.prop[game.img.bird][2])
 
-	love.graphics.draw(game.source, game.img.prop[game.img.start_bt][1], ((love.window.getWidth()/2)-26) - 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.start_bt][2])
-	love.graphics.draw(game.source, game.img.prop[game.img.rank_bt][1], ((love.window.getWidth()/2)-26) + 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.rank_bt][2])
+	engine.image.Draw(game.img.start_bt, game.source, game.img.prop[game.img.start_bt][1], ((love.window.getWidth()/2)-26) - 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.start_bt][2])
+	engine.image.Draw(game.img.rank_bt, game.source, game.img.prop[game.img.rank_bt][1], ((love.window.getWidth()/2)-26) + 32, (love.window.getHeight()/2)+40, game.img.prop[game.img.rank_bt][2])
 
-	love.graphics.draw(game.source, game.img.prop[game.img.rate_bt][1], ((love.window.getWidth()/2)-15), (love.window.getHeight()/2), game.img.prop[game.img.rate_bt][2])
+	engine.image.Draw(game.img.rate_bt, game.source, game.img.prop[game.img.rate_bt][1], ((love.window.getWidth()/2)-15), (love.window.getHeight()/2), game.img.prop[game.img.rate_bt][2])
 end
 
 function love.load()

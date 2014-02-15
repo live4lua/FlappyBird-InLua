@@ -48,13 +48,3 @@ end
 
 function love.quit()
 end
-
-function insideBox(px, py, x, y, mx, my)
-	if px >= x and px <= mx then
-		if py >= y and py <= my then
-			return true
-		end
-	end
-
-	return false 
-end
