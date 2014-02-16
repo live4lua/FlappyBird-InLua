@@ -82,10 +82,9 @@ function engine.enviroment.ColisionCheck(dt, objectID)
 
 					if local_colision[1] or local_colision[2] or local_colision[3] or local_colision[4] then
 						if game.colision[i][2] == "GameOver" then
-							print("Colision GameOver")
 							engine.game.GameOver()
 						elseif game.colision[i][2] == "GivePoint" then
-							print("Colision Point")
+							engine.game.GivePoint()
 						end
 					end
 				end

@@ -69,14 +69,12 @@ function engine.image.fade(dt)
 			if game.img.fade[i] ~= nil then
 				if game.img.fade[i][3] == "In" then
 					if game.img.prop[game.img.fade[i][1]][8] < game.img.fade[i][2] then
-						print("Object FadeIN", game.img.prop[game.img.fade[i][1]][8], "<", game.img.fade[i][2], game.img.prop[game.img.fade[i][1]][8] < game.img.fade[i][2]) -- DEBUG
 						game.img.prop[game.img.fade[i][1]][8] = game.img.prop[game.img.fade[i][1]][8] + 1
 					else
 						game.img.fade[i] = nil
 					end
 				elseif game.img.fade[i][3] == "Out" then
 					if game.img.prop[game.img.fade[i][1]][8] > game.img.fade[i][2] then
-						print("Object FadeOut:", game.img.prop[game.img.fade[i][1]][8], ">", game.img.fade[i][2], game.img.prop[game.img.fade[i][1]][8] > game.img.fade[i][2]) -- DEBUG
 						game.img.prop[game.img.fade[i][1]][8] = game.img.prop[game.img.fade[i][1]][8] - 1
 					else
 						game.img.fade[i] = nil
