@@ -2,15 +2,18 @@ engine.bird = {}
 
 function engine.bird.Config()
 	bird = {}
-	bird.frame_c = 1
-	bird.time = 0
+
+	-- Informçaões do 'bird'
+	bird.frame_c = 1 -- Indicador contagem do Frame
+	bird.time = 0    -- Tempo de contagem dos Frames pelo update(dt)
 	bird.frame = {{3, 491, 17, 12},
 				  {31, 491, 17, 12},
-				  {59, 491, 17, 12}}
+				  {59, 491, 17, 12}} -- Informação de posição da imagem pelos 3 frames
 
+	-- Array de informações para movimento do 'bird' no MENU
 	bird.vMove_or = 0 -- Orientação do movimento 1 cima 0 baixo
-	bird.vMove_time = 0
-	bird.vMove = 0
+	bird.vMove_time = 0 -- Tempo decorido entre os updates(dt)
+	bird.vMove = 0 -- Quantidade de movimento Realizado (Usado tambem nas informações de Gravidade quando jogavel)
 
 	-- Lock do movimento automatico ou do jogo
 	-- Modos:
@@ -19,6 +22,7 @@ function engine.bird.Config()
 	-- -- 2 (GameOver)
 	bird.lock = 0
 
+	-- Array de informações para gravidade do Movimento
 	bird.gMove = {}
 	bird.gMove.InMove = 0 -- Define se esta em movimento de subida ou nao
 	bird.gMove.mTime = 0.0030 -- Tempo do Update
@@ -55,7 +59,11 @@ end
 -- -- 1 (Movimento automatico [menu e espera])
 -- -- 2 (GameOver)
 
-function engine.bird.Move(dt)
+function engine.bird.Move(dt) 
+-- Não sera explicado oque acontece nesse trecho de codigo por ser mais complexo
+-- Então caso haja necessidade entre em contato com pelo email dos Devs ou pelo live4lua
+-- Nota do DEV: Deixo bem claro que tudo que foi feito fora de padão('logico') nesse trecho teve com a
+-- 				funcionalidade de melhoria do jogo, em aspectos de velocidade e outros.
 	if bird.lock == 1 then
 		if bird.vMove_time > 0.015 then
 			if bird.vMove_or == 0 then
@@ -120,11 +128,13 @@ function engine.bird.Move(dt)
 	end
 end
 
+-- Callback utilizado para gerar movimento no 'bird'
+
 function engine.bird.MoveAdd(addMove)
 
 	bird.gMove.gTime = 0 -- Tempo da Gravidade
 	bird.gMove.Vend = 0 -- Dist Final
 	bird.gMove.Vinit = addMove -- Velocidade Inicial
 
-	bird.gMove.InMove = 1
+	bird.gMove.InMove = 1 -- Define que ha movimento sendo realizado
 end

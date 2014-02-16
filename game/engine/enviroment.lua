@@ -13,7 +13,7 @@ function engine.enviroment.Config()
 	game.colision.Time = 0
 end
 
--- Função para movimento da Ambientação
+-- Função para movimento da Ambientação do jogo
 function engine.enviroment.Move(dt)
 	if game.move.time > game.move.act and bird.lock ~= 2 then
 		if game.move.footer > 0 then
@@ -65,6 +65,9 @@ function engine.enviroment.createColisionArea(objectID, callback)
 	return game.colision[0]
 end
 
+-- Função que faz a verificação se Obejeto determinado não esta incidindo
+-- na area de uma das colisoes, assim chamando um certo CallBack ja defi-
+-- nido quando a area de colisão foi criada.
 function engine.enviroment.ColisionCheck(dt, objectID)
 	if game.colision.Start then
 		if game.colision.Time > 0.008 then
@@ -93,6 +96,7 @@ function engine.enviroment.ColisionCheck(dt, objectID)
 	end
 end
 
+-- Função de que edita a area de colisão de um definido Objeto
 function engine.enviroment.editColision(objectID, x, y)
 	local colisionID = nil
 
@@ -106,6 +110,7 @@ function engine.enviroment.editColision(objectID, x, y)
 	game.colision[colisionID][5] = y
 end
 
+-- Função para verificação de existencia de uma colisão pelo Objeto determiado
 function engine.enviroment.existColision(objectID)
 	if game.colision[0] > 0 then
 		for i=1,game.colision[0] do
