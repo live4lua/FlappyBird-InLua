@@ -57,6 +57,7 @@ function love.update(dt)
 	engine.bird.Frame(dt)		-- Cria movimentação da imagem da ave
 	engine.bird.Move(dt) 		-- Cria movimentação vertical da ave
 	engine.enviroment.Move(dt)  -- Cria movimento do ambiente
+	engine.image.fade(dt)       -- Faz a função dos objetos
 
 	engine.enviroment.ColisionCheck(dt, game.img.bird) -- Colisão do Bird
 end
@@ -67,6 +68,15 @@ end
 function love.keypressed(key, unicode)
 	if key == " " then
 		engine.bird.MoveAdd(1.3)
+	end
+
+	-- Parte usada somente para testes!
+	if key == "k" then
+		engine.image.fadeIn(game.img.bird, 100)
+	end
+
+	if key == "l" then
+		engine.image.fadeOut(game.img.bird, 0)
 	end
 end
 
