@@ -31,6 +31,7 @@ function engine.bird.Config()
 	bird.gMove.RadCalc = ((360-320)/(5/0.2)) -- Calculo do Raio de giro do Bird conciderando 5 movimento padrao
 end
 
+-- Cria movimentação da imagem do BIRD
 function engine.bird.Frame(dt)
 	if bird.time > 0.15 and bird.lock ~= 2 then -- Adicinando para não movimentar o frame quando der GameOver
 		if bird.frame_c < 3 then
@@ -47,7 +48,14 @@ function engine.bird.Frame(dt)
 	end
 end
 
-function engine.bird.Move(dt) -- Macumba realizada nessa linha para funcionar legal (o.o)
+-- Função de movimento do Bird
+-- Dependente do tipo da variavel bird.lock
+-- em seus 3 modos:
+-- -- 0 (Em Jogo)
+-- -- 1 (Movimento automatico [menu e espera])
+-- -- 2 (GameOver)
+
+function engine.bird.Move(dt)
 	if bird.lock == 1 then
 		if bird.vMove_time > 0.015 then
 			if bird.vMove_or == 0 then
