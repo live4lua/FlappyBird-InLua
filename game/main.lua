@@ -16,23 +16,29 @@ function load()
 	game.img.start_bt = engine.image.Create(354, 118, 52, 30, game.res[1], game.res[2]) -- //
 	game.img.rank_bt = engine.image.Create(414, 118, 52, 30, game.res[1], game.res[2])  -- //
 	game.img.rate_bt = engine.image.Create(465, 1, 31, 19, game.res[1], game.res[2])    -- //
+	game.img.tube = {
+						{engine.image.Create(56, 323, 26, 161, game.res[1], game.res[2]),
+						engine.image.Create(84, 323, 26, 161, game.res[1], game.res[2])},
+						{engine.image.Create(56, 323, 26, 161, game.res[1], game.res[2]),
+						engine.image.Create(84, 323, 26, 161, game.res[1], game.res[2])},
+						{engine.image.Create(56, 323, 26, 161, game.res[1], game.res[2]),
+						engine.image.Create(84, 323, 26, 161, game.res[1], game.res[2])}
+					}
 
 	engine.enviroment.createColisionArea(game.img.footer, "GameOver") -- Cria colisão de certo Objeto
+	--engine.game.tubesColision()
 end
 
 function game_config()
 	engine.image.Config()
 	engine.bird.Config()
 	engine.enviroment.Config()
+	engine.game.Config()
 end
 	
 function love.draw()
 	-- Background (Sempre aparece)
 	engine.image.Draw(game.img.background[1], game.source, game.img.prop[game.img.background[1]][1], 0, 0, game.img.prop[game.img.background[1]][2])
-
-	-- Chão (Sempre aparece)
-	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer-13, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
-	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
 
 	-- Componetes do menu que somente vão aparecer quando for indicado pelo modo MENU
 	if bird.lock == 1 then
@@ -46,6 +52,24 @@ function love.draw()
 		engine.image.Draw(game.img.rate_bt, game.source, game.img.prop[game.img.rate_bt][1], ((love.window.getWidth()/2)-15), (love.window.getHeight()/2), game.img.prop[game.img.rate_bt][2])
 	end
 
+	if bird.lock == 0 or bird.lock == 2 then
+		-- Primeiros Tubos
+		engine.image.Draw(game.img.tube[1][1], game.source, game.img.prop[game.img.tube[1][1]], eGame.tubes.pos[1], 0-135+eGame.tubes.y[1], game.img.prop[game.img.tube[1][2]][2])
+		engine.image.Draw(game.img.tube[1][2], game.source, game.img.prop[game.img.tube[1][2]], eGame.tubes.pos[1], 26+60+eGame.tubes.y[1], game.img.prop[game.img.tube[1][2]][2])
+
+		-- Secundarios
+		engine.image.Draw(game.img.tube[2][1], game.source, game.img.prop[game.img.tube[1][1]], eGame.tubes.pos[2], 0-135+eGame.tubes.y[2], game.img.prop[game.img.tube[1][2]][2])
+		engine.image.Draw(game.img.tube[2][2], game.source, game.img.prop[game.img.tube[1][2]], eGame.tubes.pos[2], 26+60+eGame.tubes.y[2], game.img.prop[game.img.tube[1][2]][2])
+		-- Secundarios
+		engine.image.Draw(game.img.tube[2][1], game.source, game.img.prop[game.img.tube[1][1]], eGame.tubes.pos[3], 0-135+eGame.tubes.y[3], game.img.prop[game.img.tube[1][2]][2])
+		engine.image.Draw(game.img.tube[2][2], game.source, game.img.prop[game.img.tube[1][2]], eGame.tubes.pos[3], 26+60+eGame.tubes.y[3], game.img.prop[game.img.tube[1][2]][2])
+
+	end
+
+	-- Chão (Sempre aparece)
+	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer-13, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
+	engine.image.Draw(game.img.footer, game.source, game.img.prop[game.img.footer][1], game.move.footer, love.window.getHeight()-56, game.img.prop[game.img.footer][2])
+
 	-- O 'bird' (SEMPRE NO FINAL DO DRAW)
 	engine.image.Draw(game.img.bird, game.source, game.img.prop[game.img.bird][1], (love.window.getWidth()/2)-7, ((love.window.getHeight()/2)-40) + bird.vMove, game.img.prop[game.img.bird][2])
 end
@@ -58,6 +82,7 @@ function love.update(dt)
 	engine.bird.Move(dt) 		-- Cria movimentação vertical da ave
 	engine.enviroment.Move(dt)  -- Cria movimento do ambiente
 	engine.image.fade(dt)       -- Faz a função dos objetos
+	engine.game.tubesRepos(dt)
 
 	engine.enviroment.ColisionCheck(dt, game.img.bird) -- Colisão do Bird
 end
