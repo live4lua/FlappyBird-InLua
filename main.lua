@@ -22,6 +22,7 @@ function load()
 end
 
 function love.load()
+	math.randomseed(os.time())
 	loadState("game")
 end
 	

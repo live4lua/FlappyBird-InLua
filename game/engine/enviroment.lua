@@ -19,9 +19,11 @@ function engine.enviroment.Move(dt)
 		if game.move.footer > 0 then
 			game.move.footer = game.move.footer - 1
 
-			eGame.tubes.pos[1] = eGame.tubes.pos[1] - 1
-			eGame.tubes.pos[2] = eGame.tubes.pos[2] - 1
-			eGame.tubes.pos[3] = eGame.tubes.pos[3] - 1
+			if bird.lock == 0 then
+				eGame.tubes.pos[1] = eGame.tubes.pos[1] - 1
+				eGame.tubes.pos[2] = eGame.tubes.pos[2] - 1
+				eGame.tubes.pos[3] = eGame.tubes.pos[3] - 1
+			end
 		else
 			game.move.footer = 10
 		end

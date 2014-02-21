@@ -93,11 +93,11 @@ function engine.bird.Move(dt)
 			if bird.gMove.Time > bird.gMove.mTime then
 				bird.gMove.gTime = bird.gMove.gTime + bird.gMove.Time
 				bird.gMove.Vend = (bird.gMove.Vinit - ((GAME_GRAVITY/2)*bird.gMove.gTime))/2
-				bird.vMove = bird.vMove - bird.gMove.Vend
+				bird.vMove = (bird.vMove - bird.gMove.Vend) + 0.1
 
 				if bird.gMove.Rad <= 91 or bird.gMove.Rad >= 330 then
 					if bird.gMove.Rad <= 0 then bird.gMove.Rad = 360 end
-					bird.gMove.Rad = bird.gMove.Rad - 0.8
+					bird.gMove.Rad = bird.gMove.Rad - 0.4
 					engine.image.RadEdit(game.img.bird, bird.gMove.Rad)
 				end
 				
