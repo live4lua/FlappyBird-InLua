@@ -64,6 +64,9 @@ function engine.bird.Move(dt)
 -- Então caso haja necessidade entre em contato com pelo email dos Devs ou pelo live4lua
 -- Nota do DEV: Deixo bem claro que tudo que foi feito fora de padão('logico') nesse trecho teve com a
 -- 				funcionalidade de melhoria do jogo, em aspectos de velocidade e outros.
+
+	local incress_up = 0 -- Teste
+
 	if bird.lock == 1 then
 		if bird.vMove_time > 0.015 then
 			if bird.vMove_or == 0 then
@@ -97,7 +100,8 @@ function engine.bird.Move(dt)
 
 				if bird.gMove.Rad <= 91 or bird.gMove.Rad >= 330 then
 					if bird.gMove.Rad <= 0 then bird.gMove.Rad = 360 end
-					bird.gMove.Rad = bird.gMove.Rad - 0.4
+					if bird.gMove.Rad <= 90 then incress_up = 0.099 end
+					bird.gMove.Rad = bird.gMove.Rad - (0.4997 + incress_up)
 					engine.image.RadEdit(game.img.bird, bird.gMove.Rad)
 				end
 				
@@ -116,7 +120,7 @@ function engine.bird.Move(dt)
 
 				if bird.gMove.Rad <= 90 or bird.gMove.Rad >= 320 then
 					if bird.gMove.Rad >= 360 then bird.gMove.Rad = 0  end
-					bird.gMove.Rad = bird.gMove.Rad + 0.3
+					bird.gMove.Rad = bird.gMove.Rad + 0.3987
 					engine.image.RadEdit(game.img.bird, bird.gMove.Rad)
 				end
 
